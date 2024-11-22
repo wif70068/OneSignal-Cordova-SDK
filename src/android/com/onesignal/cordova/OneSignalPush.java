@@ -142,6 +142,8 @@ public class OneSignalPush extends CordovaPlugin implements INotificationLifecyc
   private static final String REMOVE_PUSH_TO_START_TOKEN = "removePushToStartToken";
   private static final String SETUP_DEFAULT_ACTIVITY = "setupDefaultLiveActivity";
   private static final String START_DEFAULT_LIVE_ACTIVITY = "startDefaultLiveActivity";
+  
+  private static final String DESTROY = "destroy";
 
   private static final HashMap<String, INotificationWillDisplayEvent> notificationWillDisplayCache = new HashMap<>();
   private static final HashMap<String, INotificationWillDisplayEvent> preventDefaultCache = new HashMap<>();
@@ -629,6 +631,12 @@ public class OneSignalPush extends CordovaPlugin implements INotificationLifecyc
 
       case START_DEFAULT_LIVE_ACTIVITY:
         result = OneSignalController.startDefaultLiveActivity();
+        break;
+
+      case DESTROY:
+        result = true;
+        this.hasAddedNotificationClickListener = false;
+        onDestroy();
         break;
 
       default:
